@@ -1,0 +1,6 @@
+{
+    "ContentFolderLocation" : "res/content",
+    "TemplateFileLoc" : "res/templates",
+    "TemplateFileName" : "board.tmpl",
+    "PortNumber" : ":80",
+}
