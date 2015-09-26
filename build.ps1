@@ -32,4 +32,5 @@ If($skipCopyRes){
     Copy-Item ($src_dir+$res_path) $bin_dir -recurse -force
 }
 
+Set-Location $src_dir
 Write-Host "Done"
