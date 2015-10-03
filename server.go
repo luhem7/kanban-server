@@ -11,18 +11,6 @@ import (
 	"os"
 )
 
-//Location of content data
-var contentFolderLoc = "res/content/"
-
-//Location of the template file
-var templateFileLoc = "res/templates/"
-
-//Name of the template file
-var templateFileName = "board.tmpl"
-
-//Port number to start the server on
-var portNumber = ":80"
-
 func main() {
 	initLogging()
 
@@ -49,6 +37,7 @@ func contentHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Get the filename from the url:
 	dataFileLoc := r.URL.Path[len("/content/"):] + ".json"
+	templateFileName := r.URL.Path[len("/content/"):] + ".tmpl"
 
 	log.Info("Request for file: " + contentFolderLoc + dataFileLoc)
 	dat, err := ioutil.ReadFile(contentFolderLoc + dataFileLoc)
@@ -81,7 +70,7 @@ func makeHTML(myPageData PageDataModel) (string, error) {
 	var result bytes.Buffer
 
 	//Read the template file
-	t, err := template.ParseFiles(templateFileLoc + templateFileName)
+	t, err := template.ParseFiles(templateFileLoc + myPageData.Templates[0])
 	/*Things I learnt while trying to debug the above line:
 	  1. Use template.ParseFiles, NOT NOT NOT (t *Template).ParseFiles, where t is
 	      some template that was defined earlier in the code.
