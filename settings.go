@@ -14,11 +14,14 @@ var DefaultSettings = Settings{
 //Location of content data
 var contentFolderLoc = "res/content/"
 
+//Location of binary files
+var binaryFolderLoc = "res/binary"
+
 //Location of the template file
 var templateFileLoc = "res/templates/"
 
-//Name of the template file
-//var templateFileName = "About.tmpl"
+//Location of the kanban-board html file
+var kanbanHtmlFileName = "/html/mainBoardScreen.html"
 
 //Port number to start the server on
 var portNumber = ":80"

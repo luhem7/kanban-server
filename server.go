@@ -25,9 +25,24 @@ func initLogging() {
 	log.SetLevel(log.DebugLevel)
 }
 
-//This function handles calls related to manipulating the kanban board itself
+//This function handles calls related to accessing the kanban board itself
 func kanbanHandler(w http.ResponseWriter, r *http.Request) {
-	//TODO Add stuff here
+	//If attempting to go to a child url of /kanban-board/, put them back at
+	//kanban-board
+	if len(r.URL.Path[len("/kanban-board/"):]) > 0 {
+		http.Redirect(w, r, "/kanban-board/", 303)
+	}
+
+	//Read the kanban board html file
+	dat, err := ioutil.ReadFile(binaryFolderLoc+kanbanHtmlFileName)
+	if err != nil {
+		http.Error(w, "Error processing page", 500)
+		log.Error(err.Error())
+		return
+	}
+
+	log.Info("Serving up kanban board")
+	fmt.Fprintf(w, string(dat))
 }
 
 //Returns content based on the input url.
@@ -37,7 +52,6 @@ func contentHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Get the filename from the url:
 	dataFileLoc := r.URL.Path[len("/content/"):] + ".json"
-	templateFileName := r.URL.Path[len("/content/"):] + ".tmpl"
 
 	log.Info("Request for file: " + contentFolderLoc + dataFileLoc)
 	dat, err := ioutil.ReadFile(contentFolderLoc + dataFileLoc)
