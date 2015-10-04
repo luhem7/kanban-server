@@ -14,7 +14,8 @@ import (
 func main() {
 	initLogging()
 
-	http.HandleFunc("/content/", contentHandler)
+	http.HandleFunc("/binary/", binaryHandler)
+	http.HandleFunc("/kanban-board/content/", contentHandler)
 	http.HandleFunc("/kanban-board/", kanbanHandler)
 	log.Info("Listening on port" + portNumber)
 	log.Fatal(http.ListenAndServe(portNumber, nil))
@@ -23,6 +24,23 @@ func main() {
 func initLogging() {
 	log.SetOutput(os.Stdout)
 	log.SetLevel(log.DebugLevel)
+}
+
+//This function handles calls related to accessing binary files
+func binaryHandler(w http.ResponseWriter, r *http.Request) {
+	binaryFilePath := r.URL.Path[len("/binary/"):]
+
+	log.Info("Request for binary: " + binaryFilePath)
+
+	dat, err := ioutil.ReadFile(binaryFolderLoc + binaryFilePath)
+	if err != nil {
+		//Return a 404 for errrors.
+		http.NotFound(w, r)
+		log.Error(err.Error())
+		return
+	}
+
+	fmt.Fprintf(w, string(dat))
 }
 
 //This function handles calls related to accessing the kanban board itself
@@ -34,7 +52,7 @@ func kanbanHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Read the kanban board html file
-	dat, err := ioutil.ReadFile(binaryFolderLoc+kanbanHtmlFileName)
+	dat, err := ioutil.ReadFile(binaryFolderLoc + kanbanHtmlFileName)
 	if err != nil {
 		http.Error(w, "Error processing page", 500)
 		log.Error(err.Error())
@@ -51,12 +69,12 @@ func kanbanHandler(w http.ResponseWriter, r *http.Request) {
 func contentHandler(w http.ResponseWriter, r *http.Request) {
 
 	//Get the filename from the url:
-	dataFileLoc := r.URL.Path[len("/content/"):] + ".json"
+	dataFileLoc := r.URL.Path[len("/kanban-board/content/"):] + ".json"
 
 	log.Info("Request for file: " + contentFolderLoc + dataFileLoc)
 	dat, err := ioutil.ReadFile(contentFolderLoc + dataFileLoc)
 	if err != nil {
-		//Return a 404 for errrors. TODO Use actual HTTP responses
+		//Return a 404 for errrors.
 		http.NotFound(w, r)
 		log.Error(err.Error())
 		return
@@ -84,7 +102,7 @@ func makeHTML(myPageData PageDataModel) (string, error) {
 	var result bytes.Buffer
 
 	//Read the template file
-	t, err := template.ParseFiles(templateFileLoc + myPageData.Templates[0])
+	t, err := template.ParseFiles(templateFolderLoc + myPageData.Templates[0])
 	/*Things I learnt while trying to debug the above line:
 	  1. Use template.ParseFiles, NOT NOT NOT (t *Template).ParseFiles, where t is
 	      some template that was defined earlier in the code.

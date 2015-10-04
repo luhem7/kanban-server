@@ -10,6 +10,8 @@ $src_dir = $Env:GOPATH + "\src\" + $project_name
 $bin_dir = $Env:GOPATH + "\bin\" + $project_name
 $res_path = "\res"
 
+Write-Host "Building "$project_name" project"
+
 If($skipCompileGo) {
     Write-Host "Skipping building the go executable"
 } Else {
@@ -27,7 +29,6 @@ If($skipForceClean){
 If($skipCopyRes){
     Write-Host "Skipping copying Res folder to bin directory"
 } Else {
-    Write-Host "Building "$project_name" project"
     Write-Host "Copying Res folder to bin directory"
     Copy-Item ($src_dir+$res_path) $bin_dir -recurse -force
 }
