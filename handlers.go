@@ -85,5 +85,14 @@ func contentHandler(w http.ResponseWriter, r *http.Request) {
 
 //Handles calls related to the handle function
 func dataColumnsHandler(w http.ResponseWriter, r *http.Request){
+    dat, err := ioutil.ReadFile(dataDir + columnsFileName)
+	if err != nil {
+		http.Error(w, "Error processing page", 500)
+		log.Error(err.Error())
+		return
+	}
 
+    log.Debug("In dataColumnsHandler")
+    w.Header().Set("Content-Type", "application/json")
+    fmt.Fprintf(w, string(dat))
 }
