@@ -7,6 +7,8 @@ import (
     "fmt"
     "io/ioutil"
     "encoding/json"
+    "mime"
+    "path/filepath"
 )
 
 //This function handles calls related to accessing binary files
@@ -26,7 +28,22 @@ func binaryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+    w.Header().Set("Content-Type", getMimeType(binaryFilePath))
 	fmt.Fprintf(w, string(dat))
+}
+
+//Given a filename or a filepath, tries to find the corresponding MIME type
+//Returns application/octet-stream as default if none is found
+func getMimeType(filePath string) string {
+    fileExt := filepath.Ext(filePath)
+    defaultMime := "application/octet-stream"
+    if len(fileExt) != 0 {
+        mimeType := mime.TypeByExtension(fileExt)
+        if len(mimeType) != 0 {
+            return mimeType
+        }
+    }
+    return defaultMime
 }
 
 //This function handles calls related to accessing the kanban board itself
@@ -93,6 +110,6 @@ func dataColumnsHandler(w http.ResponseWriter, r *http.Request){
 	}
 
     log.Debug("In dataColumnsHandler")
-    w.Header().Set("Content-Type", "application/json")
+
     fmt.Fprintf(w, string(dat))
 }
