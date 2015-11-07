@@ -1,86 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="BoardApp">
     <head>
         <meta name=viewport content='width=500'>
 
         <link rel="stylesheet" type="text/css" href="/binary/css/mainBoard.css">
         <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-        <script src="/binary/js/mainBoard.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="/binary/js/mainBoard.js"></script>
+
         <!-- Above viewport node just to tell cellphones what the preferred size is -->
     </head>
-    <body>
+    <body ng-controller="BoardCtrl">
         <div id="board_header">
             <span id="left">Kanban</span>
             <span id="right">Board</span>
         </div>
         <div id="board_body">
-
-            <div class="task_column">
+            <div ng-repeat="columnName in taskColumns.Columns" class="task_column">
                 <div class="column_header">
-                    <span>TO DO</span>
-                </div>
-                <div class = "column_body">
-                    <div id="task1" class="task">
-                        <div class="task_title">Do the dishes</div>
-                        <div class="task_body"></div>
-                    </div>
-                    <div id="task2" class="task">
-                        <div class="task_title">Take car for oil change</div>
-                        <div class="task_body">30 percent oil change life left</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="task_column">
-                <div class="column_header">
-                    <span>In Progress</span>
-                </div>
-                <div class = "column_body">
-                    <div id="task1" class="task">
-                        <div class="task_title">Buy cat food</div>
-                        <div class="task_body">He feels the hunger. Quis auctor feugiat egestas ut rutrum ante turpis etiam auctor ante tellus, taciti tellus suspendisse leo fermentum proin consectetur dapibus vivamus tincidunt velit, facilisis aenean consectetur mi nisl luctus erat feugiat odio quis</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="task_column">
-                <div class="column_header">
-                    <span>Waiting</span>
+                    <span>{{columnName}}</span>
                 </div>
                 <div class="column_body">
-                    <div id="task1" class="task">
-                        <div class="task_title">Submit form</div>
-                        <div class="task_body">Submit form for tortillas</div>
-                    </div>
-                    <div id="task2" class="task">
-                        <div class="task_title">Order case</div>
-                        <div class="task_body">Order case from france</div>
+                    <div ng-repeat="task in getTasksByColumnName(columnName)" class="task">
+                        <div class="task_title">{{task["task-title"]}}</div>
+                        <div class="task_body">{{task["task-body"]}}</div>
                     </div>
                 </div>
             </div>
-
-            <div class="task_column">
-                <div class="column_header">
-                    <span>Done</span>
-                </div>
-                <div class="column_body">
-                    <div id="task1" class="task">
-                        <div class="task_title">Mow the lawn</div>
-                        <div class="task_body">Its so long</div>
-                    </div>
-                    <div id="task2" class="task">
-                        <div class="task_title">Pay Rent</div>
-                        <div class="task_body">Recurrent reminder to pay rent</div>
-                    </div>
-                    <div id="task3" class="task">
-                        <div class="task_title">Vacuum the house</div>
-                        <div class="task_body">Recurrent reminder to vacuum the house</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </body>
 </html>

@@ -27,6 +27,11 @@ body{
     padding: 10px;
     margin: 20px;
     border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.task_title{
+    background-color: #EBEBEB
 }
 
 .task_body{
