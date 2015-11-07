@@ -4,7 +4,7 @@ body{
 }
 
 #board_header {
-    font-size: 70px;
+    font-size: 56px;
 
     text-align: center;
 
@@ -22,32 +22,43 @@ body{
     margin-right: 20px;
 }
 
+.task_column {
+    /*width: 330px;*/
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-top : 5px solid #6699FF;
+}
+
+.column_header {
+    text-align: left;
+    font-size: 30px;
+}
+
+.column-collapse-button{
+    text-align: right;
+    float: right;
+}
+
 .task {
     width: 400px;
     padding: 10px;
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid gray;
     border-radius: 5px;
+    align-self: center;
 }
 
-.task_title{
-    background-color: #EBEBEB
+.task_title {
+    background-color: #EBEBEB;
+    padding-left: 5px;
 }
 
 .task_body{
     font-size: 20px;
     margin-left: 20px;
-}
-
-.column_header {
-    text-align: center;
-    font-size: 30px;
-}
-
-.task_column {
-    /*width: 330px;*/
-    margin-top: 20px;
-    padding: 10px;
-    border-top : 5px solid #6699FF;
-    margin: 0;
 }

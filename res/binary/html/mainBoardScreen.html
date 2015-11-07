@@ -5,6 +5,7 @@
 
         <link rel="stylesheet" type="text/css" href="/binary/css/mainBoard.css">
         <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
         <script src="/binary/js/mainBoard.js"></script>
@@ -14,15 +15,18 @@
     <body ng-controller="BoardCtrl">
         <div id="board_header">
             <span id="left">Kanban</span>
+            <span  class="fa fa-suitcase"></span>
             <span id="right">Board</span>
         </div>
         <div id="board_body">
-            <div ng-repeat="columnName in taskColumns.Columns" class="task_column">
+            <div ng-repeat="column in taskColumns.columns" class="task_column">
                 <div class="column_header">
-                    <span>{{columnName}}</span>
+                    <span>{{column.columnName}}</span>
+                    <span>({{getNumTasksByColumnName(column.columnName)}})</span>
+                    <span class="column-collapse-button fa fa-minus"></span>
                 </div>
                 <div class="column_body">
-                    <div ng-repeat="task in getTasksByColumnName(columnName)" class="task">
+                    <div ng-repeat="task in getTasksByColumnName(column.columnName)" class="task">
                         <div class="task_title">{{task["task-title"]}}</div>
                         <div class="task_body">{{task["task-body"]}}</div>
                     </div>

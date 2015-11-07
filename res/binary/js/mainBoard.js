@@ -1,10 +1,22 @@
 var testColumns =
 {
-    "Columns": [
-        "TO DO",
-        "In Progress",
-        "Waiting",
-        "Done"
+    "columns": [
+        {
+            "columnName" : "TO DO",
+            "numTasks" : 0
+        },
+        {
+            "columnName" : "In Progress",
+            "numTasks" : 0
+        },
+        {
+            "columnName" : "Waiting",
+            "numTasks" : 0
+        },
+        {
+            "columnName" : "Done",
+            "numTasks" : 0
+        }
     ]
 };
 
@@ -40,8 +52,16 @@ var testTasks = {
 var myApp = angular.module('BoardApp', []);
 
 myApp.controller('BoardCtrl', ['$scope', function($scope){
+    //Initializing
     $scope.taskColumns = testColumns;
     $scope.testTasks = testTasks;
+
+    $scope.getNumTasksByColumnName = function(columnName){
+        if (angular.isUndefined(testTasks[columnName+"-Tasks"])) {
+            return 0;
+        }
+            return testTasks[columnName+"-Tasks"].length;
+    }
 
     $scope.getTasksByColumnName = function(columnName){
         return testTasks[columnName+"-Tasks"];
