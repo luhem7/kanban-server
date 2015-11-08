@@ -15,7 +15,6 @@ import (
 func binaryHandler(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     binaryFilePath := vars["binaryFilePath"]
-	//binaryFilePath := r.URL.Path[len("/binary/"):]
 
 	log.Info("Request for binary: " + binaryFilePath)
 
@@ -101,15 +100,17 @@ func contentHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 //Handles calls related to the handle function
-func dataColumnsHandler(w http.ResponseWriter, r *http.Request){
-    dat, err := ioutil.ReadFile(dataDir + columnsFileName)
+func dataHandler(w http.ResponseWriter, r *http.Request){
+    vars := mux.Vars(r)
+    resourceName := vars["resourceName"]
+    log.Debug("In dataHandler. Request for "+resourceName)
+    dat, err := ioutil.ReadFile(dataDir + resourceName+".json")
 	if err != nil {
-		http.Error(w, "Error processing page", 500)
+		http.Error(w, "Error fetching data for resource "+resourceName, 404)
 		log.Error(err.Error())
 		return
 	}
 
-    log.Debug("In dataColumnsHandler")
-
+    w.Header().Set("Content-Type", "application/json")
     fmt.Fprintf(w, string(dat))
 }
