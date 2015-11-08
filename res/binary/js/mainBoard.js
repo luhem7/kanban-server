@@ -86,8 +86,4 @@ myApp.controller('BoardCtrl', ['$scope', function($scope){
     $scope.getTasksByColumn = function(column){
         return testTasks[column.columnName];
     };
-
-    $scope.toggleColumnDisplay = function(column){
-        column.isVisible = ! column.isVisible;
-    }
 }]);
