@@ -1,3 +1,8 @@
+html {
+     overflow: -moz-scrollbars-vertical;
+     overflow: scroll;
+} /*The get the scroll bar to always display*/
+
 body{
     font-family: 'Lato', sans-serif;
     font-size: 23px;
@@ -39,6 +44,18 @@ body{
 .column-collapse-button{
     text-align: right;
     float: right;
+}
+
+.column_body{
+    opacity: 1;
+}
+
+.column_body.ng-hide-add, .column_body.ng-hide-remove {
+    transition: all 0.5s linear;
+}
+
+.column_body.ng-hide{
+    opacity: 0;
 }
 
 .task {
