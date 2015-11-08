@@ -24,7 +24,7 @@
                 <div class="column_header">
                     <span>{{column.columnName}}</span>
                     <span>({{getNumTasksByColumn(column)}})</span>
-                    <span class="column-collapse-button fa fa-minus" ng-click="toggleColumnDisplay(column)"></span>
+                    <span class="column-collapse-button" ng-class="{'fa fa-minus': column.isVisible, 'fa fa-plus': !column.isVisible}" ng-click="toggleColumnDisplay(column)"></span>
                 </div>
                 <div class="column_body" ng-show="column.isVisible">
                     <div ng-repeat="task in getTasksByColumn(column)" class="task">
