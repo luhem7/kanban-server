@@ -14,16 +14,23 @@
     </head>
     <body ng-controller="BoardCtrl">
         <div id="board_header">
-            <span id="left">Kanban</span>
-            <span  class="fa fa-suitcase"></span>
-            <span id="right">Board</span>
+            <div id="logo-container">
+                <span id="left">Kanban</span>
+                <span  class="fa fa-suitcase"></span>
+                <span id="right">Board</span>
+            </div>
+            <div class="menubar">
+                <span class="editButton" id="editColumnsButton">Edit Columns</span>
+                <span class="editButton" id="addColumnButton">Add Column</span>
+                <span class="editButton" id="doneEditingButton">Done Editing</span>
+            </div>
         </div>
         <div id="board_body">
             <div ng-repeat="column in taskColumns.columns" class="task_column">
                 <div class="column_header">
                     <span>{{column.columnName}}</span>
                     <span>({{getNumTasksByColumn(column)}})</span>
-                    <span class="column-collapse-button" ng-class="{'fa fa-minus': column.isVisible, 'fa fa-plus': !column.isVisible}" ng-click="column.isVisible = !column.isVisible"></span>
+                    <span class="column-collapse-span" ng-class="{'fa fa-minus': column.isVisible, 'fa fa-plus': !column.isVisible}" ng-click="column.isVisible = !column.isVisible"></span>
                 </div>
                 <div class="column_body" ng-show="column.isVisible">
                     <div ng-repeat="task in getTasksByColumn(column)" class="task">
