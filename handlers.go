@@ -1,20 +1,20 @@
 package main
 
 import (
-    "net/http"
-    log "github.com/Sirupsen/logrus"
-    "github.com/gorilla/mux"
-    "fmt"
-    "io/ioutil"
-    "encoding/json"
-    "mime"
-    "path/filepath"
+	"encoding/json"
+	"fmt"
+	log "github.com/Sirupsen/logrus"
+	"github.com/gorilla/mux"
+	"io/ioutil"
+	"mime"
+	"net/http"
+	"path/filepath"
 )
 
 //This function handles calls related to accessing binary files
 func binaryHandler(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    binaryFilePath := vars["binaryFilePath"]
+	vars := mux.Vars(r)
+	binaryFilePath := vars["binaryFilePath"]
 
 	log.Info("Request for binary: " + binaryFilePath)
 
@@ -22,27 +22,27 @@ func binaryHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		//Return a 404 for errrors.
 		http.NotFound(w, r)
-        log.Error("Error serving Binary file "+r.URL.Path[len("/binary/"):])
+		log.Error("Error serving Binary file " + r.URL.Path[len("/binary/"):])
 		log.Error(err.Error())
 		return
 	}
 
-    w.Header().Set("Content-Type", getMimeType(binaryFilePath))
+	w.Header().Set("Content-Type", getMimeType(binaryFilePath))
 	fmt.Fprintf(w, string(dat))
 }
 
 //Given a filename or a filepath, tries to find the corresponding MIME type
 //Returns application/octet-stream as default if none is found
 func getMimeType(filePath string) string {
-    fileExt := filepath.Ext(filePath)
-    defaultMime := "application/octet-stream"
-    if len(fileExt) != 0 {
-        mimeType := mime.TypeByExtension(fileExt)
-        if len(mimeType) != 0 {
-            return mimeType
-        }
-    }
-    return defaultMime
+	fileExt := filepath.Ext(filePath)
+	defaultMime := "application/octet-stream"
+	if len(fileExt) != 0 {
+		mimeType := mime.TypeByExtension(fileExt)
+		if len(mimeType) != 0 {
+			return mimeType
+		}
+	}
+	return defaultMime
 }
 
 //This function handles calls related to accessing the kanban board itself
@@ -100,17 +100,17 @@ func contentHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 //Handles calls related to the handle function
-func dataHandler(w http.ResponseWriter, r *http.Request){
-    vars := mux.Vars(r)
-    resourceName := vars["resourceName"]
-    log.Debug("In dataHandler. Request for "+resourceName)
-    dat, err := ioutil.ReadFile(dataDir + resourceName+".json")
+func dataGetHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	resourceName := vars["resourceName"]
+	log.Debug("In dataHandler. Request for " + resourceName)
+	dat, err := ioutil.ReadFile(dataDir + resourceName + ".json")
 	if err != nil {
 		http.Error(w, "Error fetching data for resource "+resourceName, 404)
 		log.Error(err.Error())
 		return
 	}
 
-    w.Header().Set("Content-Type", "application/json")
-    fmt.Fprintf(w, string(dat))
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintf(w, string(dat))
 }
