@@ -1,8 +1,8 @@
 Param(
-    [Parameter(Mandatory=$False)][boolean]$skipCopyRes=$False,
-    [Parameter(Mandatory=$False)][boolean]$skipCopyData=$False,
-    [Parameter(Mandatory=$False)][boolean]$skipCompileGo=$False,
-    [Parameter(Mandatory=$False)][boolean]$skipForceClean=$False
+    [Parameter(Mandatory=$False)][boolean]$copyRes=$False,
+    [Parameter(Mandatory=$False)][boolean]$copyData=$False,
+    [Parameter(Mandatory=$False)][boolean]$compileGo=$False,
+    [Parameter(Mandatory=$False)][boolean]$forceClean=$False
 )
 
 #Script variables
@@ -14,7 +14,14 @@ $data_path = "\data"
 
 Write-Host "Building "$project_name" project"
 
-If($skipCompileGo) {
+If(!$forceClean){
+    Write-Host "Skipping force clean of res directory"
+} Else {
+    Write-Host "Force cleaning of res directory"
+    Remove-Item ($bin_dir+$res_path) -recurse -force
+}
+
+If(!$compileGo) {
     Write-Host "Skipping building the go executable"
 } Else {
     Write-Host "Building the go executable"
@@ -22,20 +29,14 @@ If($skipCompileGo) {
     go build $project_name
 }
 
-If($skipForceClean){
-    Write-Host "Skipping force clean of res directory"
-} Else {
-    Remove-Item ($bin_dir+$res_path) -recurse -force
-}
-
-If($skipCopyRes){
+If(!$copyRes){
     Write-Host "Skipping copying Res folder to bin directory"
 } Else {
     Write-Host "Copying Res folder to bin directory"
     Copy-Item ($src_dir+$res_path) $bin_dir -recurse -force
 }
 
-If($skipCopyData){
+If(!$copyData){
     Write-Host "Skipping copying Data folder to bin directory"
 } Else {
     Write-Host "Copying Data folder to bin directory"
