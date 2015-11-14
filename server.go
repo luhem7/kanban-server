@@ -14,12 +14,12 @@ func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
 	//Presentation related Handlers
-	router.HandleFunc("/binary/{binaryFilePath:.+}", binaryHandler)
-	router.HandleFunc("/kanban-board/content/{resourceName:.+}", contentHandler)
-	router.HandleFunc("/kanban-board/", kanbanHandler)
+	router.HandleFunc("/binary/{binaryFilePath:.+}", binaryHandler).Methods("GET")
+	router.HandleFunc("/kanban-board/content/{resourceName:.+}", contentHandler).Methods("GET")
+	router.HandleFunc("/kanban-board/", kanbanHandler).Methods("GET")
 
 	//Data related Handlers
-	router.HandleFunc("/kanban-board/data/{resourceName:.+}", dataHandler)
+	router.HandleFunc("/kanban-board/data/{resourceName:.+}", dataGetHandler).Methods("GET")
 
 	log.Info("Listening on port" + portNumber)
 	log.Fatal(http.ListenAndServe(portNumber, router))

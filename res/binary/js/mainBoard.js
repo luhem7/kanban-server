@@ -9,9 +9,12 @@ myApp.factory('tasksRes', function($resource){
 });
 
 myApp.controller('BoardCtrl', ['$scope', 'taskColumnsRes', 'tasksRes', function($scope, taskColumnsRes, tasksRes){
-    //Initializing data
-    $scope.tasks = {};
-    $scope.taskColumns = {};
+    //Initializing data definitions
+    $scope.tasks = {}; //The tasks on the board
+    $scope.taskColumns = {}; //The task columns on the board
+    $scope.isEditingColumns = false; //User state where board is being edited.
+
+    //Fetching initial data values
     taskColumnsRes.get(function(data){
         $scope.taskColumns = data;
     });
