@@ -69,9 +69,10 @@ body{
 }
 
 #doneEditingButton{
-    margin-left: -3px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+
+    border-left: 0;
 }
 
 .task_column {
