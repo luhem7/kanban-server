@@ -1,3 +1,5 @@
+document.addEventListener("touchstart", function() {},false); //Let mobile Safari use :active css pseudo class
+
 var myApp = angular.module('BoardApp', ['ngAnimate', 'ngResource']);
 
 myApp.factory('taskColumnsRes', function($resource){

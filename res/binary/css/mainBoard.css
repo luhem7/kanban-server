@@ -1,7 +1,11 @@
 html {
+    /*The get the scroll bar to always display*/
      overflow: -moz-scrollbars-vertical;
      overflow: scroll;
-} /*The get the scroll bar to always display*/
+
+     /*Remove mobile Safari browser touch highlight*/
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
 
 body{
     font-family: 'Lato', sans-serif;
@@ -11,22 +15,10 @@ body{
 #board_header {
     font-size: 56px;
     text-align: center;
-
-    margin-top: 20px;
 }
 
-#board_header #left {
-    float: left;
-    margin-left: 20px;
-}
-
-#boardLogo{
+.boardLogo{
     text-align: center;
-}
-
-#board_header #right {
-    float: right;
-    margin-right: 20px;
 }
 
 .menubar{
@@ -36,7 +28,7 @@ body{
 }
 
 .menubar > * { /* All the children of menubar */
-    border: 2px solid black;
+    border-bottom: 2px solid black;
     padding: 5px 5px 5px 5px;
 }
 
@@ -47,6 +39,8 @@ body{
 
 .editButton{
     opacity: 1;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .editButton.ng-hide-remove {
@@ -55,23 +49,6 @@ body{
 
 .editButton.ng-hide{
     opacity: 0;
-}
-
-#editColumnsButton{
-    border-radius: 10px;
-}
-
-#addColumnButton{
-    margin-right: -3px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-#doneEditingButton{
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-
-    border-left: 0;
 }
 
 .task_column {
