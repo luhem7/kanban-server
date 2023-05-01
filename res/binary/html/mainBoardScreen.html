@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="BoardApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=500">
+
+        <link rel="stylesheet" type="text/css" href="/binary/css/mainBoard.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+        <title>Kanban Board</title>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js"></script>
+        <script src="/binary/js/mainBoard.js"></script>
+    </head>
+    <body ng-controller="BoardCtrl">
+        <div id="board_header">
+            <div id="logo-container">
+                <span class="boardLogo fa fa-suitcase"></span>
+                <span class="boardLogo">Kanban Board</span>
+            </div>
+            <div class="menubar">
+                <span class="editButton" id="editColumnsButton" ng-show="!isEditingColumns" ng-click="isEditingColumns=true">Edit Columns</span>
+                <span class="editButton" id="addColumnButton" ng-show="isEditingColumns">Add Column</span>
+                <span class="editButton" id="doneEditingButton" ng-show="isEditingColumns" ng-click="isEditingColumns=false">Done Editing</span>
+            </div>
+        </div>
+        <div id="board_body">
+            <div ng-repeat="column in taskColumns.columns" class="task_column">
+                <div class="column_header">
+                    <span>{{column.columnName}}</span>
+                    <span>({{getNumTasksByColumn(column)}})</span>
+                    <span class="column-collapse-span" ng-class="{'fa fa-minus': column.isVisible, 'fa fa-plus': !column.isVisible}" ng-click="column.isVisible = !column.isVisible"></span>
+                </div>
+                <div class="column_body" ng-show="column.isVisible">
+                    <div ng-repeat="task in getTasksByColumn(column)" class="task">
+                        <div class="task_title">{{task["task-title"]}}</div>
+                        <div class="task_body">{{task["task-body"]}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

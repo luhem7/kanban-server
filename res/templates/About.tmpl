@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>{{.Title}}</title>
+    </head>
+    <body>
+        <h1>{{.Header}}</h1>
+        <p>{{.Description}}</p>
+        <div>
+            <p>Reasons to use this board: </p>
+            <ol>
+            {{range .Reasons}}
+            <li>{{.}}</li>
+            {{end}}
+            </ol>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+{
+    "columns": [
+        {
+            "columnName" : "TO DO",
+            "numTasks" : 0,
+            "isVisible" : true
+        },
+        {
+            "columnName" : "In Progress",
+            "numTasks" : 0,
+            "isVisible" : true
+        },
+        {
+            "columnName" : "Waiting",
+            "numTasks" : 0,
+            "isVisible" : true
+        },
+        {
+            "columnName" : "Done",
+            "numTasks" : 0,
+            "isVisible" : true
+        }
+    ]
+}

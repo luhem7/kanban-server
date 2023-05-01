@@ -1,0 +1,108 @@
+html {
+    /*The get the scroll bar to always display*/
+     overflow: -moz-scrollbars-vertical;
+     overflow: scroll;
+
+     /*Remove mobile Safari browser touch highlight*/
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+}
+
+#board_header {
+    font-size: 56px;
+    text-align: center;
+}
+
+.boardLogo{
+    text-align: center;
+}
+
+.menubar{
+    font-size: 20px;
+    padding-top: 20px;
+    border-top : 5px solid #6699FF;
+}
+
+.menubar > * { /* All the children of menubar */
+    border-bottom: 2px solid black;
+    padding: 5px 5px 5px 5px;
+}
+
+.editButton:active{
+    color: white;
+    background-color: black;
+}
+
+.editButton{
+    opacity: 1;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.editButton.ng-hide-remove {
+    transition: all 0.5s linear;
+}
+
+.editButton.ng-hide{
+    opacity: 0;
+}
+
+.task_column {
+    /*width: 330px;*/
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-top : 5px solid #6699FF;
+}
+
+.column_header {
+    text-align: left;
+    font-size: 30px;
+}
+
+.column-collapse-button{
+    text-align: right;
+    float: right;
+}
+
+.column_body{
+    opacity: 1;
+}
+
+.column_body.ng-hide-add, .column_body.ng-hide-remove {
+    transition: all 0.5s linear;
+}
+
+.column_body.ng-hide{
+    opacity: 0
+}
+
+.task {
+    width: 300px;
+
+    display: inline-block;
+    vertical-align: top;
+
+    padding: 10px;
+    margin-top: 20px;
+    /*margin-bottom: 20px;*/
+    margin-right: 20px;
+
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.task_title {
+    background-color: #EBEBEB;
+    padding-left: 5px;
+    font-size: 23px;
+}
+
+.task_body{
+    margin-left: 20px;
+}
